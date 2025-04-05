@@ -6,4 +6,9 @@ export default defineConfig({
   define: {
     "process.env": process.env,
   },
+  server: {
+    allowedHosts: [
+      "860b-111-235-226-130.ngrok-free.app",
+    ]
+  }
 });

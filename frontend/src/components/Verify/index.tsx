@@ -14,9 +14,8 @@ export type VerifyCommandInput = {
 };
 
 const verifyPayload: VerifyCommandInput = {
-  action: "test-action", // This is your action ID from the Developer Portal
-  signal: "",
-  verification_level: VerificationLevel.Orb, // Orb | Device
+  action: "cat", // This is your action ID from the Developer Portal
+  verification_level: VerificationLevel.Device, // Orb | Device
 };
 
 export const VerifyBlock = () => {
@@ -41,9 +40,13 @@ export const VerifyBlock = () => {
       return finalPayload;
     }
 
+    console.log("Sending verification payload to backend");
+
+    console.log(import.meta.env.VITE_NEXTAUTH_URL);
+
     // Verify the proof in the backend
     const verifyResponse = await fetch(
-      `${process.env.NEXTAUTH_URL}/api/verify`,
+      `${import.meta.env.VITE_NEXTAUTH_URL}/verify`,
       {
         method: "POST",
         headers: {
@@ -56,6 +59,8 @@ export const VerifyBlock = () => {
         }),
       }
     );
+
+    console.log(verifyResponse);
 
     // TODO: Handle Success!
     const verifyResponseJson = await verifyResponse.json();
@@ -71,6 +76,7 @@ export const VerifyBlock = () => {
 
   return (
     <div>
+      {import.meta.env.VITE_NEXTAUTH_URL}
       <h1>Verify Block</h1>
       <button className="bg-green-500 p-4" onClick={handleVerify}>
         Test Verify

@@ -4,6 +4,7 @@ import { verifyHandler } from "./src/verify";
 import { initiatePaymentHandler } from "./src/initiate-payment";
 import { confirmPaymentHandler } from "./src/confirm-payment";
 import cors from "cors";
+import { nonceHandler } from "src/nonce";
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.get("/ping", (_, res) => {
 app.post("/verify", verifyHandler);
 app.post("/initiate-payment", initiatePaymentHandler);
 app.post("/confirm-payment", confirmPaymentHandler);
+app.get("/nonce", nonceHandler);
 
 const port = 3000; // use env var
 app.listen(port, () => {
